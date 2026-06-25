@@ -1,0 +1,120 @@
+# ============================================================
+# DriveVQA: Git ignore rules
+# 仅 push 代码与文档，排除数据集 / 模型权重 / 索引 / 缓存
+# ============================================================
+
+# ----- Python 缓存 -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ----- 虚拟环境 -----
+.venv/
+venv/
+env/
+ENV/
+
+# ----- IDE / 编辑器 -----
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ----- 日志 / 临时文件 -----
+*.log
+*.tmp
+*.bak
+nohup.out
+*.pid
+*.seed
+
+# ============================================================
+# 数据集 / 图像（不 push,需用户自己下载）
+# ============================================================
+# 顶层 data/ 目录（如果将来添加）
+/data/
+
+# graph4drive/data/ 包含 nuScenes / drivelm 图像与标注 JSON
+graph4drive/data/json/
+graph4drive/data/nuscenes/
+graph4drive/data/drivelm_nus_imgs_val/
+graph4drive/data/drivelm_nus_imgs_train/
+graph4drive/drivelm_nus_imgs_train.zip
+graph4drive/drivelm_nus_imgs_val.zip
+graph4drive/*.zip
+
+# RAGdrive/data/ 与 graph4drive/data/ 结构相同,镜像路径
+RAGdrive/data/json/
+RAGdrive/data/nuscenes/
+RAGdrive/data/drivelm_nus_imgs_val/
+
+# ============================================================
+# 模型权重（不 push,通过 huggingface / modelscope 下载）
+# ============================================================
+graph4drive/models/
+RAGdrive/models/
+models/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.gguf
+*.ckpt
+*.h5
+*.hdf5
+
+# ============================================================
+# 向量索引 / BM25 / 大型 pickle（pipeline 重建）
+# ============================================================
+# RAGdrive/index/
+RAGdrive/index/
+*.pkl
+*.parquet
+*.npy
+*.npz
+
+# graph4drive/graphrag_community/ 整目录都是 pipeline 输出
+graph4drive/graphrag_community/
+
+# RAGdrive/chunks/ 切好的 chunk 缓存
+RAGdrive/chunks/
+
+# ============================================================
+# 运行输出 / 实验结果
+# ============================================================
+graph4drive/output/
+graph4drive/outputs_run/
+RAGdrive/outputs/
+outputs/
+runs/
+checkpoints/
+logs/
+
+# ============================================================
+# 评估过程文件
+# ============================================================
+*.jsonl
+!*/data_tools/**/*.jsonl
+!README.md
+
+# ============================================================
+# 敏感信息(API key / token)
+# ============================================================
+.env
+.env.local
+*.pem
+*.key
+secrets/
