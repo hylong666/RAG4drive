@@ -1,0 +1,5 @@
+# RAGdrive 检索索引
+# 由 build_bm25.py 和 build_index.py 生成
+# 包括: bm25.pkl (~163MB), hnsw_bge.bin (~1.6GB), chunks_meta.parquet (~39MB) 等
+*
+!.gitignore

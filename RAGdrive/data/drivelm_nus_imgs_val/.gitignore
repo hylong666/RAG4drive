@@ -1,0 +1,5 @@
+# DriveLM val 图像集
+# 需从 DriveLM 官方下载 DriveLM-NuScenes val zip
+# 解压到 val_data/{CAM}/*.jpg
+*
+!.gitignore

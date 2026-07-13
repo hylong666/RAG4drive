@@ -1,0 +1,5 @@
+# graph4drive 在线推理输出
+# 由 run_graphrag_drift_vlm.py 生成的预测结果
+# 包括: preds_kg_drift_vlm.jsonl 等
+*
+!.gitignore

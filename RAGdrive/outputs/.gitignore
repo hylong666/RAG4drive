@@ -1,0 +1,5 @@
+# RAGdrive 生成结果
+# 由 generate.py 生成的预测结果
+# 包括: *.jsonl (各种实验输出)
+*
+!.gitignore

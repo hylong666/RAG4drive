@@ -1,0 +1,5 @@
+# nuScenes v1.0-train 数据集
+# 需从 https://www.nuscenes.org/download 下载 (~280GB)
+# 包含 samples/{CAM_FRONT,CAM_BACK,...}/*.jpg
+*
+!.gitignore

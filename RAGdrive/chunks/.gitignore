@@ -1,0 +1,5 @@
+# RAGdrive chunks 缓存
+# 由 chunk_drivelm.py 生成
+# 包括: chunks_v1_0.jsonl (~430MB), chunks_v1_0_stats.json
+*
+!.gitignore

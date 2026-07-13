@@ -1,0 +1,10 @@
+# graph4drive pipeline 输出目录
+# 包含 chunks/, entity_kg/, entity_communities/, text_units/ 等子目录
+# 由离线构建脚本生成 (~2GB)
+# 需要的文件会自动生成，这里只保留目录结构
+
+# 忽略所有内容
+*
+
+# 但保留 .gitignore 本身
+!.gitignore
