@@ -22,14 +22,14 @@
 
 | 数据 | 下载 | 放置路径 |
 |---|---|---|
-| **nuScenes** (v1.0-train) | https://www.nuscenes.org/download (需注册, ~280GB) | `graph4drive/data/nuscenes/` |
-| **DriveLM 标注 JSON** (v1_0_train_nus / v1_1_train_nus / v1_1_val_nus_q_only / test_eval) | https://github.com/DriveLM/DriveLM/tree/main/data/QA 下的 `*_nus.json` 文件 | `graph4drive/data/json/` |
-| **DriveLM val 图像** | DriveLM 官方 DriveLM-NuScenes val zip | `graph4drive/data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` |
+| **nuScenes** (v1.0-train) | https://www.nuscenes.org/download (需注册, ~280GB) | `data/nuscenes/` (仓库根目录,与 RAGdrive 共用) |
+| **DriveLM 标注 JSON** (v1_0_train_nus / v1_1_train_nus / v1_1_val_nus_q_only / test_eval) | https://github.com/DriveLM/DriveLM/tree/main/data/QA 下的 `*_nus.json` 文件 | `data/json/` |
+| **DriveLM val 图像** | DriveLM 官方 DriveLM-NuScenes val zip | `data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` |
 
 快速下载 JSON 标注 (Linux):
 ```bash
-mkdir -p graph4drive/data/json
-cd graph4drive/data/json
+mkdir -p data/json
+cd data/json
 # 从 DriveLM 仓库直接下载(以 v1_0_train_nus.json 为例)
 wget https://raw.githubusercontent.com/DriveLM/DriveLM/main/data/QA/v1_0_train_nus.json
 wget https://raw.githubusercontent.com/DriveLM/DriveLM/main/data/QA/v1_1_train_nus.json
@@ -143,11 +143,11 @@ mkdir -p models
 
 | 文件 | 来源 | 内容 |
 |---|---|---|
-| `data/json/v1_0_train_nus.json` | DriveLM 官方 | 4072 scene × ~140 QA(35 per task × 4 tasks) + 6 相机图像路径 |
-| `data/json/v1_1_val_nus_q_only.json` | DriveLM 官方 | 验证集(无答案) |
-| `data/json/test_eval.json` | DriveLM 官方 | 66 条测试集(有答案,用于 eval) |
-| `data/nuscenes/samples/{CAM}/*.jpg` | nuScenes | 6 相机 × 4072 帧训练图像 |
-| `data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` | DriveLM | 验证集图像 |
+| `../data/json/v1_0_train_nus.json` | DriveLM 官方 | 4072 scene × ~140 QA(35 per task × 4 tasks) + 6 相机图像路径 |
+| `../data/json/v1_1_val_nus_q_only.json` | DriveLM 官方 | 验证集(无答案) |
+| `../data/json/test_eval.json` | DriveLM 官方 | 66 条测试集(有答案,用于 eval) |
+| `../data/nuscenes/samples/{CAM}/*.jpg` | nuScenes | 6 相机 × 4072 帧训练图像 |
+| `../data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` | DriveLM | 验证集图像 |
 
 **test_eval.json 关键字段**:
 ```json
@@ -269,7 +269,7 @@ graph4drive/
 
 ```bash
 python3 data_tools/build_chunks_jsonl.py
-# 输入: data/json/v1_0_train_nus.json
+# 输入: ../data/json/v1_0_train_nus.json
 # 输出: graphrag_community/chunks/drivelm_train_chunks.jsonl
 # 时间: ~2 分钟
 ```
@@ -583,7 +583,7 @@ python3 data_tools/build_text_units.py
 
 # === 在线推理(只用最少的参数,其他都用最优默认)===
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 66 \
   --output-dir ./outputs_run
 ```
@@ -600,36 +600,36 @@ python3 test_tools/run_graphrag_drift_vlm.py \
 ```bash
 # 只跑 5 条样本,验证 pipeline 通(都用默认)
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 5
 
 # 不带 BM25 / rerank(只用 BGE-M3)
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 10 \
   --no-bm25 --no-rerank
 
 # 单相机(只看 CAM_FRONT)
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 10 \
   --multi-camera 1
 
 # 6 相机(全 surround)
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 10 \
   --multi-camera 6
 
 # 关闭 MCQ 路由(消融)
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 10 \
   --no-mcq-global-only
 
 # 调更多社区
 python3 test_tools/run_graphrag_drift_vlm.py \
-  --val-path ./data/json/test_eval.json \
+  --val-path ../data/json/test_eval.json \
   --n-samples 10 \
   --k-communities 4
 ```
@@ -638,7 +638,7 @@ python3 test_tools/run_graphrag_drift_vlm.py \
 
 ```
 通用:
---val-path           验证集 JSON 路径(默认 ./data/json/test_eval.json)
+--val-path           验证集 JSON 路径(默认 ../data/json/test_eval.json)
 --n-samples          处理多少样本(默认 66,0 = 全部)
 --output-dir         输出目录(默认 ./outputs_kg_drift_vlm)
 --vlm-path           Qwen2.5-VL 模型路径(自动解析 HF cache snapshot)
@@ -676,7 +676,7 @@ python3 test_tools/run_graphrag_drift_vlm.py \
 ```bash
 cd /home/hylong/xczn/driveVQA
 python3 compare_metrics.py \
-  --gt graph4drive/data/json/test_eval.json \
+  --gt data/json/test_eval.json \
   --preds \
     "RunA=graph4drive/outputs/outputs_run/preds_kg_drift_vlm.jsonl" \
   --pred-field prediction

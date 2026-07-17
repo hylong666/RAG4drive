@@ -70,21 +70,21 @@ RAGdrive/
 
 | 数据 | 下载 | 放置路径 |
 |---|---|---|
-| **nuScenes** (v1.0-train) | https://www.nuscenes.org/download (需注册, ~280GB) | `RAGdrive/data/nuscenes/` (或 `graph4drive/data/nuscenes/`,两边共用) |
-| **DriveLM 标注 JSON** (v1_0_train_nus / v1_1_train_nus / v1_1_val_nus_q_only) | https://github.com/DriveLM/DriveLM/tree/main/data/QA | `RAGdrive/data/json/` |
-| **test_eval.json** (66 条带答案测试集) | RAGdrive 项目仓库 / DriveLM 派生 | `RAGdrive/data/json/test_eval.json` |
-| **DriveLM val 图像** | DriveLM 官方 DriveLM-NuScenes val zip | `RAGdrive/data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` |
+| **nuScenes** (v1.0-train) | https://www.nuscenes.org/download (需注册, ~280GB) | `data/nuscenes/` (仓库根目录,RAGdrive 与 graph4drive 共用) |
+| **DriveLM 标注 JSON** (v1_0_train_nus / v1_1_train_nus / v1_1_val_nus_q_only) | https://github.com/DriveLM/DriveLM/tree/main/data/QA | `data/json/` |
+| **test_eval.json** (66 条带答案测试集) | RAGdrive 项目仓库 / DriveLM 派生 | `data/json/test_eval.json` |
+| **DriveLM val 图像** | DriveLM 官方 DriveLM-NuScenes val zip | `data/drivelm_nus_imgs_val/val_data/{CAM}/*.jpg` |
 
-快速下载 JSON 标注 (Linux):
+快速下载 JSON 标注 (Linux, 在仓库根目录执行):
 ```bash
-mkdir -p RAGdrive/data/json
-cd RAGdrive/data/json
+mkdir -p data/json
+cd data/json
 wget https://raw.githubusercontent.com/DriveLM/DriveLM/main/data/QA/v1_0_train_nus.json
 wget https://raw.githubusercontent.com/DriveLM/DriveLM/main/data/QA/v1_1_train_nus.json
 wget https://raw.githubusercontent.com/DriveLM/DriveLM/main/data/QA/v1_1_val_nus_q_only.json
 ```
 
-> **注意**: `RAGdrive/data/` 和 `graph4drive/data/` 是软链/镜像关系,数据放在任一目录即可,`generate.py` 会两个路径都试。
+> **注意**: `data/` 现位于仓库根目录,RAGdrive 与 graph4drive 共用同一份数据。
 
 ### 模型权重 (Hugging Face)
 
@@ -180,8 +180,8 @@ python3 RAGdrive/data_tools/build_index.py
 
 # === 在线生成(默认 6-cam)===
 python3 RAGdrive/data_tools/generate.py \
-  --val-json graph4drive/data/json/test_eval.json \
-  --data-root graph4drive/data \
+  --val-json data/json/test_eval.json \
+  --data-root data \
   --output RAGdrive/outputs/preds.jsonl \
   --n 66 \
   --top-k 5
@@ -192,32 +192,32 @@ python3 RAGdrive/data_tools/generate.py \
 ```bash
 # 仅 1 张相机(快)
 python3 RAGdrive/data_tools/generate.py \
-  --val-json graph4drive/data/json/test_eval.json \
-  --data-root graph4drive/data \
+  --val-json data/json/test_eval.json \
+  --data-root data \
   --output /tmp/r1cam.jsonl \
   --n 10 \
   --multi-camera 1
 
 # 4 张相机
 python3 RAGdrive/data_tools/generate.py \
-  --val-json graph4drive/data/json/test_eval.json \
-  --data-root graph4drive/data \
+  --val-json data/json/test_eval.json \
+  --data-root data \
   --output /tmp/r4cam.jsonl \
   --n 10 \
   --multi-camera 4
 
 # 6 张相机(全 surround)
 python3 RAGdrive/data_tools/generate.py \
-  --val-json graph4drive/data/json/test_eval.json \
-  --data-root graph4drive/data \
+  --val-json data/json/test_eval.json \
+  --data-root data \
   --output /tmp/r6cam.jsonl \
   --n 10 \
   --multi-camera 6
 
 # 不用 reranker(快但精度降)
 python3 RAGdrive/data_tools/generate.py \
-  --val-json graph4drive/data/json/test_eval.json \
-  --data-root graph4drive/data \
+  --val-json data/json/test_eval.json \
+  --data-root data \
   --output /tmp/r_norr.jsonl \
   --n 10 \
   --no-rerank
@@ -227,7 +227,7 @@ python3 RAGdrive/data_tools/generate.py \
 
 ```
 通用:
-  --val-json           val JSON 路径(默认 ../data/json/v1_1_val_nus_q_only.json)
+  --val-json           val JSON 路径(默认 ../../data/json/v1_1_val_nus_q_only.json)
   --data-root          nuScenes 根目录(用于解析图像路径)
   --output, -o         输出 JSONL 路径(必填)
   --n                  最多跑多少 query(0 = 全部)

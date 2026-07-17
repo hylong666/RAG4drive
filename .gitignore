@@ -43,22 +43,11 @@ nohup.out
 # ============================================================
 # 数据集 / 图像（不 push,需用户自己下载）
 # ============================================================
-# 顶层 data/ 目录（如果将来添加）
-/data/
-
-# graph4drive/data/ 包含 nuScenes / drivelm 图像与标注 JSON
-graph4drive/data/json/
-graph4drive/data/nuscenes/
-graph4drive/data/drivelm_nus_imgs_val/
-graph4drive/data/drivelm_nus_imgs_train/
-graph4drive/drivelm_nus_imgs_train.zip
-graph4drive/drivelm_nus_imgs_val.zip
-graph4drive/*.zip
-
-# RAGdrive/data/ 与 graph4drive/data/ 结构相同,镜像路径
-RAGdrive/data/json/
-RAGdrive/data/nuscenes/
-RAGdrive/data/drivelm_nus_imgs_val/
+# 顶层 data/ 目录：RAGdrive 与 graph4drive 共用（原两处 data/ 已合并到此）
+# 各子目录(json / nuscenes / drivelm_nus_imgs_val)内有占位 .gitignore 保留目录结构,
+# 故这里不整目录忽略,只忽略大文件与 train 图像目录
+/data/*.zip
+/data/drivelm_nus_imgs_train/
 
 # ============================================================
 # 模型权重（不 push,通过 huggingface / modelscope 下载）

@@ -24,7 +24,7 @@ chunk and every key object appears in the overview chunk.
 
 Input
 -----
-- ``RAGdrive/data/json/v1_0_train_nus.json`` (default; v1_1 has the same structure)
+- ``data/json/v1_0_train_nus.json`` (repo-root data dir; default; v1_1 has the same structure)
 
 Output
 ------
@@ -49,8 +49,8 @@ Usage
 ::
 
     python chunk_drivelm.py \\
-        --input-json ../data/json/v1_0_train_nus.json \\
-        --nuscenes-root ../data/nuscenes \\
+        --input-json ../../data/json/v1_0_train_nus.json \\
+        --nuscenes-root ../../data/nuscenes \\
         --output-dir ../chunks \\
         --output-basename chunks_v1_0 \\
         --levels overview,category,pair \\
@@ -555,12 +555,12 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
         "--input-json",
-        default=os.path.join(os.path.dirname(__file__), "..", "data", "json", "v1_0_train_nus.json"),
+        default=os.path.join(os.path.dirname(__file__), "..", "..", "data", "json", "v1_0_train_nus.json"),
         help="Path to the DriveLM annotation JSON file.",
     )
     ap.add_argument(
         "--nuscenes-root",
-        default=os.path.join(os.path.dirname(__file__), "..", "data", "nuscenes"),
+        default=os.path.join(os.path.dirname(__file__), "..", "..", "data", "nuscenes"),
         help="Root directory of the nuScenes dataset (used to resolve CAM_FRONT images).",
     )
     ap.add_argument(

@@ -23,7 +23,7 @@ Usage
 
     python3 evaluate_test.py \\
         --predictions RAGdrive/outputs/test_eval_preds.jsonl \\
-        --test-eval  RAGdrive/data/json/test_eval.json
+        --test-eval  data/json/test_eval.json
 """
 
 from __future__ import annotations
@@ -176,7 +176,7 @@ def _load_test_eval(path: str) -> list[dict]:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("--predictions", required=True, help="JSONL from generate.py")
-    ap.add_argument("--test-eval", default="RAGdrive/data/json/test_eval.json")
+    ap.add_argument("--test-eval", default="data/json/test_eval.json")
     ap.add_argument("--strict-mcq", action="store_true",
                     help="For MCQ, require prediction to be ONLY a single letter (no extra text).")
     args = ap.parse_args()

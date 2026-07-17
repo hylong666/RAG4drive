@@ -224,7 +224,7 @@ def build_prompt(
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--val-path", default="./data/json/test_eval.json")
+    p.add_argument("--val-path", default="../data/json/test_eval.json")
     p.add_argument("--n-samples", type=int, default=66)
     p.add_argument(
         "--comm-index",

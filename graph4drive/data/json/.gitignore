@@ -1,5 +1,0 @@
-# DriveLM 标注 JSON 文件
-# 需从 https://github.com/DriveLM/DriveLM/tree/main/data/QA 下载
-# 包括: v1_0_train_nus.json, v1_1_train_nus.json, v1_1_val_nus_q_only.json, test_eval.json
-*
-!.gitignore

@@ -153,11 +153,23 @@ def _build_prompt_text(
         parts.append(f"\nCurrent scene: {scene}")
 
     if retrieved:
-        parts.append("\nSimilar historical Q-A examples from past driving scenes:")
-        for i, c in enumerate(retrieved[:max_examples], start=1):
+        # Filter out low-quality few-shot: "None." or answers shorter than 8 words.
+        # Retrieval can accidentally cluster negative/incomplete samples; this raises
+        # the floor on example quality so the model sees at least *some* valid format.
+        good = []
+        for c in retrieved:
             q, a = _extract_qa(c.get("text_for_embedding", ""))
             if not q:
                 continue
+            a_stripped = a.strip().rstrip(".")
+            # Skip if answer is exactly "None" or very short (likely incomplete/placeholder).
+            if a_stripped.lower() == "none" or len(a.split()) < 8:
+                continue
+            good.append((q, a))
+        # Use up to max_examples from the filtered set. If we end up with zero,
+        # the prompt will just have no examples (model falls back to zero-shot).
+        parts.append("\nSimilar historical Q-A examples from past driving scenes:")
+        for i, (q, a) in enumerate(good[:max_examples], start=1):
             parts.append(f"\nExample {i}:\nQ: {q}\nA: {a}")
 
     parts.append(f"\nQuestion: {question}")
@@ -412,12 +424,12 @@ def _build_argparser() -> argparse.ArgumentParser:
     ap.add_argument("--input", help="JSONL of queries (one per line).")
     ap.add_argument(
         "--val-json",
-        default=os.path.join(os.path.dirname(__file__), "..", "data", "json", "v1_1_val_nus_q_only.json"),
+        default=os.path.join(os.path.dirname(__file__), "..", "..", "data", "json", "v1_1_val_nus_q_only.json"),
         help="If --input is not given, load queries from this val JSON.",
     )
     ap.add_argument(
         "--data-root",
-        default=os.path.join(os.path.dirname(__file__), "..", "data"),
+        default=os.path.join(os.path.dirname(__file__), "..", "..", "data"),
         help="nuScenes root for resolving CAM_FRONT image paths.",
     )
     ap.add_argument("--output", "-o", required=True, help="Output JSONL for predictions.")

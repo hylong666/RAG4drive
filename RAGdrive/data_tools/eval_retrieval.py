@@ -67,8 +67,8 @@ except ImportError:
 DEFAULT_INDEX_DIR = os.path.join(os.path.dirname(__file__), "..", "index")
 DEFAULT_MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models", "bge-large-en-v1.5")
 DEFAULT_RERANKER_DIR = os.path.join(os.path.dirname(__file__), "..", "models", "bge-reranker-large")
-DEFAULT_TRAIN_JSON = os.path.join(os.path.dirname(__file__), "..", "data", "json", "v1_0_train_nus.json")
-DEFAULT_VAL_JSON = os.path.join(os.path.dirname(__file__), "..", "data", "json", "v1_1_val_nus_q_only.json")
+DEFAULT_TRAIN_JSON = os.path.join(os.path.dirname(__file__), "..", "..", "data", "json", "v1_0_train_nus.json")
+DEFAULT_VAL_JSON = os.path.join(os.path.dirname(__file__), "..", "..", "data", "json", "v1_1_val_nus_q_only.json")
 QUERY_INSTRUCTION = "Represent this question for searching relevant passages: "
 TASKS = ("perception", "prediction", "planning", "behavior")
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_<>]+")

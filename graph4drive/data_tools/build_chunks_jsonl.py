@@ -29,7 +29,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
         "--input",
-        default="./data/json/v1_0_train_nus.json",
+        default="../data/json/v1_0_train_nus.json",
         help="Raw DriveLM JSON (scenes → key_frames → QA).",
     )
     p.add_argument(

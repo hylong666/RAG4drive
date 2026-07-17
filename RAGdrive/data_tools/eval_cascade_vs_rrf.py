@@ -39,7 +39,7 @@ from RRF_retrieve import RAGRetriever, RetrieveConfig
 from cascade_retrieve import CascadeRetriever, CascadeConfig
 
 
-DEFAULT_VAL_JSON = os.path.join(os.path.dirname(__file__), "..", "data", "json", "v1_1_val_nus_q_only.json")
+DEFAULT_VAL_JSON = os.path.join(os.path.dirname(__file__), "..", "..", "data", "json", "v1_1_val_nus_q_only.json")
 
 
 def _collect_queries(val_json: str) -> List[dict]:

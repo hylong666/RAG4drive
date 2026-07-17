@@ -27,7 +27,7 @@ accuracy / chatgpt / match / language / final score
 ```bash
 cd RAGdrive/eval_official
 python prepare_eval_set.py \
-    --train ../data/json/v1_1_train_nus.json \
+    --train ../../data/json/v1_1_train_nus.json \
     --n-scenes 5 \
     --challenge-dir ../../../DriveLM/challenge \
     --out-dir .
