@@ -178,7 +178,7 @@ python3 RAGdrive/data_tools/chunk_drivelm.py --levels overview,pair
 python3 RAGdrive/data_tools/build_bm25.py
 python3 RAGdrive/data_tools/build_index.py
 
-# === 在线生成(默认 4-cam)===
+# === 在线生成(默认 6-cam)===
 python3 RAGdrive/data_tools/generate.py \
   --val-json graph4drive/data/json/test_eval.json \
   --data-root graph4drive/data \
@@ -244,7 +244,7 @@ python3 RAGdrive/data_tools/generate.py \
   --reranker-dir        BGE reranker 路径(默认 ../models/bge-reranker-large)
 
 相机:
-  --multi-camera       1 / 4 / 6 相机(默认 4)
+  --multi-camera       1 / 4 / 6 相机(默认 6)
 ```
 
 ## 6. 核心设计
